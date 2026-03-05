@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>声探研究所 — 深度测评报告 · 游卡网络</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #ffffff;
+    --bg2:   #f7f7f5;
+    --bg3:   #f0eeea;
+    --bg4:   #e8e5df;
+    --accent:  #b8860b;
+    --accent2: #8a6508;
+    --accent3: #2563a0;
+    --red:   #c0392b;
+    --green: #1a7a48;
+    --border:  rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.06);
+    --text:  #1a1814;
+    --text2: #4a4640;
+    --text3: #8a857e;
+    --serif: 'Noto Serif SC', serif;
+    --mono:  'Space Mono', monospace;
+    --sans:  'Noto Sans SC', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.75; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 58px; background: rgba(255,255,255,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border2); }
+  .nav-left { display: flex; align-items: center; gap: 1.2rem; }
+  .nav-sep { width: 1px; height: 20px; background: var(--border); }
+  .nav-title { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 11px; font-family: var(--mono); color: var(--text3); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 3rem 5rem; position: relative; overflow: hidden; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .hero-grid { position: absolute; inset: 0; z-index: 0; opacity: 0.03; background-image: linear-gradient(var(--text) 1px, transparent 1px), linear-gradient(90deg, var(--text) 1px, transparent 1px); background-size: 64px 64px; }
+  .hero-glow { position: absolute; top: 8%; right: 6%; width: 360px; height: 360px; z-index: 0; border-radius: 50%; background: radial-gradient(circle, rgba(184,134,11,0.07) 0%, transparent 70%); }
+  .hero-content { position: relative; z-index: 1; max-width: 820px; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 1rem; font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.8rem; }
+  .hero-eyebrow-line { width: 28px; height: 1px; background: var(--accent); }
+  h1.hero-title { font-family: var(--serif); font-weight: 900; font-size: clamp(3rem, 7vw, 6rem); line-height: 1.05; color: var(--text); margin-bottom: 0.8rem; }
+  h1.hero-title span { color: var(--accent); }
+  .hero-sub { font-family: var(--mono); font-size: 12px; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 2.8rem; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .pill { display: flex; flex-direction: column; padding: 0.7rem 1.2rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; }
+  .pill-label { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-value { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 2px; }
+
+  /* LAYOUT */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 3rem; }
+  section { padding: 5.5rem 0; border-bottom: 1px solid var(--border2); }
+  section:last-of-type { border-bottom: none; }
+  .section-header { display: flex; align-items: flex-start; gap: 2rem; margin-bottom: 3rem; }
+  .section-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; padding-top: 0.5rem; flex-shrink: 0; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 700; color: var(--text); line-height: 1.2; }
+  .section-title em { font-style: normal; color: var(--accent); }
+  .section-desc { color: var(--text3); font-size: 13px; margin-top: 0.5rem; max-width: 560px; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 2rem 0; }
+
+  /* KPI BANNER */
+  .kpi-banner { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; padding: 2rem 2.4rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+  .kpi-banner::after { content: 'UNHEARD'; position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 4.5rem; font-weight: 700; color: rgba(0,0,0,0.04); letter-spacing: 0.1em; white-space: nowrap; user-select: none; pointer-events: none; }
+  .kpi-tag { display: inline-block; font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; background: rgba(184,134,11,0.08); border: 1px solid rgba(184,134,11,0.2); padding: 3px 10px; border-radius: 2px; margin-bottom: 1rem; }
+  .kpi-banner h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+  .kpi-banner p { font-size: 13px; color: var(--text2); margin-bottom: 1.6rem; max-width: 480px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 0.8rem; }
+  .kpi-card { background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 1.1rem 1.3rem; transition: box-shadow 0.2s, transform 0.2s; }
+  .kpi-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); transform: translateY(-2px); }
+  .kpi-label { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .kpi-value { font-family: var(--mono); font-size: 1.55rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.25rem; }
+  .kpi-sub { font-size: 11px; color: var(--text3); }
+  .kpi-card.blue .kpi-value { color: var(--accent3); }
+  .kpi-card.green .kpi-value { color: var(--green); }
+  .kpi-card.red .kpi-value { color: var(--red); }
+
+  /* NOTE BOX */
+  .note-box { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 3px 3px 0; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; font-size: 14px; color: var(--text2); line-height: 1.8; }
+  .note-box strong { color: var(--text); }
+
+  /* INFO BLOCKS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+  @media(max-width:700px) { .two-col { grid-template-columns: 1fr; } }
+  .info-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 1.5rem; }
+  .info-block h4 { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border2); }
+  .info-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.55rem; gap: 1rem; }
+  .info-key { font-size: 12px; color: var(--text3); flex-shrink: 0; }
+  .info-val { font-size: 13px; color: var(--text); text-align: right; }
+
+  /* TAGS */
+  .tag { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.05em; }
+  .tag-gold { background: rgba(184,134,11,0.1); color: var(--accent); border: 1px solid rgba(184,134,11,0.25); }
+  .tag-blue { background: rgba(37,99,160,0.08); color: var(--accent3); border: 1px solid rgba(37,99,160,0.2); }
+  .tag-green { background: rgba(26,122,72,0.08); color: var(--green); border: 1px solid rgba(26,122,72,0.2); }
+  .tag-red { background: rgba(192,57,43,0.08); color: var(--red); border: 1px solid rgba(192,57,43,0.2); }
+  .diff-dot { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 10px; }
+  .diff-dot::before { content: '●'; font-size: 7px; }
+  .diff-easy { color: var(--green); } .diff-easy::before { color: var(--green); }
+  .diff-medium { color: var(--accent); } .diff-medium::before { color: var(--accent); }
+  .diff-hard { color: var(--red); } .diff-hard::before { color: var(--red); }
+
+  /* PROS / CONS */
+  .pros-cons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+  @media(max-width:680px) { .pros-cons-grid { grid-template-columns: 1fr; } }
+  .pros-block, .cons-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 1.4rem; }
+  .pros-block { border-top: 3px solid var(--green); }
+  .cons-block { border-top: 3px solid var(--red); }
+  .neutral-block { background: var(--bg2); border: 1px solid var(--border); border-top: 3px solid var(--accent3); border-radius: 3px; padding: 1.4rem; margin-bottom: 1.5rem; }
+  .pc-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.9rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border2); }
+  .pros-block .pc-title { color: var(--green); }
+  .cons-block .pc-title { color: var(--red); }
+  .neutral-block .pc-title { color: var(--accent3); }
+  .pc-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .pc-list li { font-size: 13px; color: var(--text2); padding-left: 1.2rem; position: relative; line-height: 1.65; }
+  .pros-block .pc-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .cons-block .pc-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .neutral-block .pc-list li::before { content: '·'; position: absolute; left: 0; color: var(--accent3); font-weight: 700; }
+  .neutral-block .pc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 2rem; }
+
+  /* PLAYER QUOTES */
+  .player-quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+  @media(max-width:700px) { .player-quotes { grid-template-columns: 1fr; } }
+  .player-quote-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 1.3rem 1.5rem; }
+  .pq-source { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .pq-text { font-size: 13px; color: var(--text2); line-height: 1.75; font-style: italic; }
+  .pq-text strong { color: var(--text); font-style: normal; }
+  .pq-context { margin-top: 0.6rem; font-size: 12px; color: var(--accent); font-style: normal; }
+
+  /* CASE GRID */
+  .cases-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .case-item { background: var(--bg); border-bottom: 1px solid var(--border2); padding: 1.7rem 2rem; transition: background 0.15s; }
+  .case-item:last-child { border-bottom: none; }
+  .case-item:hover { background: var(--bg2); }
+  .case-header { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .case-num-badge { width: 38px; height: 38px; border-radius: 3px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .case-info { flex: 1; }
+  .case-title { font-family: var(--serif); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .case-time { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+  .case-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.35rem 0 0.7rem; }
+  .case-synopsis { font-size: 13px; color: var(--text2); line-height: 1.75; }
+  .case-note { margin-top: 0.75rem; padding: 0.65rem 1rem; background: var(--bg2); border-left: 2px solid var(--accent); border-radius: 0 2px 2px 0; font-size: 12px; color: var(--text2); font-style: italic; }
+
+  /* FEEDBACK */
+  .feedback-topic { margin-bottom: 1.8rem; padding-bottom: 1.8rem; border-bottom: 1px solid var(--border2); }
+  .feedback-topic:last-child { border-bottom: none; }
+  .feedback-topic-title { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.6rem; }
+  .feedback-topic-title::before { content: ''; display: block; width: 14px; height: 1px; background: var(--accent); }
+  .feedback-topic p { font-size: 14px; color: var(--text2); line-height: 1.8; }
+  .feedback-topic p + p { margin-top: 0.5rem; }
+  .hl { color: var(--text); font-weight: 500; }
+  .pull-quote { border-left: 3px solid var(--accent); padding: 0.4rem 0 0.4rem 1.4rem; margin: 1.2rem 0; }
+  .pull-quote p { font-family: var(--serif); font-size: 0.95rem; color: var(--text); font-style: italic; line-height: 1.75; }
+  .pull-quote cite { display: block; margin-top: 0.4rem; font-family: var(--mono); font-size: 10px; color: var(--text3); font-style: normal; letter-spacing: 0.08em; }
+
+  /* SUGGESTIONS */
+  .sug-list { display: flex; flex-direction: column; gap: 1px; background: var(--border2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .sug-item { background: var(--bg); padding: 1.3rem 1.6rem; display: flex; gap: 1rem; align-items: flex-start; transition: background 0.15s; }
+  .sug-item:hover { background: var(--bg2); }
+  .sug-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .sug-content h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+  .sug-content p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+  /* TABLE */
+  .styled-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 13px; }
+  .styled-table th { background: var(--bg3); color: var(--text3); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  .styled-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border2); color: var(--text2); vertical-align: top; }
+  .styled-table tr:last-child td { border-bottom: none; }
+  .styled-table tr:hover td { background: var(--bg2); }
+  .styled-table td:first-child { color: var(--text); font-weight: 500; }
+
+  /* TIMELINE */
+  .timeline { padding-left: 2rem; border-left: 1px solid var(--border); }
+  .timeline-item { position: relative; margin-bottom: 1.8rem; padding-left: 1.5rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -2.1rem; top: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg); }
+  .timeline-label { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+  .timeline-item h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  .timeline-item p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+  /* POTENTIAL */
+  .potential-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; padding: 2.2rem; display: flex; gap: 2.5rem; align-items: flex-start; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .potential-score { flex-shrink: 0; text-align: center; }
+  .rating-stars { display: flex; gap: 3px; justify-content: center; }
+  .rating-star { font-size: 1.4rem; color: var(--accent); }
+  .rating-star.empty { color: var(--bg4); }
+  .rating-text { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 4px; }
+  .rating-sub { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .potential-content { flex: 1; min-width: 260px; }
+  .potential-content h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .potential-content p { font-size: 13px; color: var(--text2); line-height: 1.8; }
+  .bar-group { margin-top: 1.1rem; }
+  .bar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.55rem; }
+  .bar-label { font-size: 11px; color: var(--text3); width: 88px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; background: var(--accent); animation: barGrow 1.2s ease-out forwards; transform-origin: left; }
+  @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .bar-val { font-family: var(--mono); font-size: 11px; color: var(--accent); width: 30px; }
+
+  /* VISION */
+  .vision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+  .vision-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 1.5rem; }
+  .vision-icon { font-size: 1.5rem; margin-bottom: 0.7rem; }
+  .vision-card h4 { font-family: var(--serif); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+  .vision-card p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+  /* FOOTER */
+  footer { padding: 2.5rem 3rem; border-top: 1px solid var(--border2); }
+  .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.06em; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ANIM */
+  .fade-in { opacity: 0; transform: translateY(18px); animation: fi 0.7s ease forwards; }
+  @keyframes fi { to { opacity: 1; transform: none; } }
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.2s; }
+  .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <svg width="90" height="30" viewBox="0 0 100 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="18" cy="18" rx="16" ry="8" stroke="#b8860b" stroke-width="1.6" fill="none"/>
+      <ellipse cx="18" cy="18" rx="16" ry="8" stroke="#b8860b" stroke-width="1.6" fill="none" transform="rotate(60 18 18)"/>
+      <ellipse cx="18" cy="18" rx="16" ry="8" stroke="#b8860b" stroke-width="1.6" fill="none" transform="rotate(-60 18 18)"/>
+      <circle cx="18" cy="18" r="2.8" fill="#b8860b"/>
+      <text x="39" y="23" font-family="Noto Sans SC,sans-serif" font-weight="700" font-size="14" fill="#1a1814" letter-spacing="1.5">游卡网络</text>
+    </svg>
+    <div class="nav-sep"></div>
+    <span class="nav-title">战略分析组</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">一代概览</a></li>
+    <li><a href="#eval">综合评估</a></li>
+    <li><a href="#test">测试概况</a></li>
+    <li><a href="#cases">七个故事</a></li>
+    <li><a href="#feedback">测评反馈</a></li>
+    <li><a href="#outlook">前景展望</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-in">
+      <span class="hero-eyebrow-line"></span>
+      游卡网络战略分析组 · 内测测评报告
+    </div>
+    <h1 class="hero-title fade-in">声探<span>研究所</span></h1>
+    <p class="hero-sub fade-in">《疑案追声》（Unheard）二代续作 · 早期内测深度测评 · 2025年3月4日</p>
+    <div class="hero-pills fade-in">
+      <div class="pill"><span class="pill-label">测评日期</span><span class="pill-value">2025年3月4日</span></div>
+      <div class="pill"><span class="pill-label">当前阶段</span><span class="pill-value">早期内测版本</span></div>
+      <div class="pill"><span class="pill-label">第二次测试</span><span class="pill-value">预计 2025年6月</span></div>
+      <div class="pill"><span class="pill-label">正式上线预期</span><span class="pill-value">预计 2025年10月</span></div>
+      <div class="pill"><span class="pill-label">测评时长/人</span><span class="pill-value">约7小时</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- 00 · 一代市场概览 -->
+<section id="overview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">00</span>
+      <div>
+        <h2 class="section-title">一代核心<em>市场指标</em>概览</h2>
+        <p class="section-desc">《疑案追声》Unheard —— 声音解谜 · 监听推理，定义品类的国产独立游戏</p>
+      </div>
+    </div>
+
+    <div class="kpi-banner">
+      <div class="kpi-tag">疑案追声 UNHEARD — Voices of Crime</div>
+      <h3>声音解谜 · 监听推理</h3>
+      <p>玩家通过听取多时间线同步对话，定位角色身份、还原案件真相。全球罕见的音频驱动侦探解谜品类，奠定续作核心玩法基础。</p>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Steam 上线时间</div>
+          <div class="kpi-value" style="font-size:1.1rem;">2019 / 03</div>
+          <div class="kpi-sub">距今约6年</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-label">产品销量</div>
+          <div class="kpi-value">150W+</div>
+          <div class="kpi-sub">Gamalytic / 制作人：150~200万份</div>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-label">全球总评价</div>
+          <div class="kpi-value">3.3W</div>
+          <div class="kpi-sub">好评率 96%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">国区评价</div>
+          <div class="kpi-value">2.9W</div>
+          <div class="kpi-sub">好评率 96%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">核心玩法</div>
+          <div class="kpi-value" style="font-size:0.8rem;line-height:1.5;padding-top:4px;">声音解谜<br>监听推理</div>
+          <div class="kpi-sub">音频驱动 · 多线叙事</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-label">内容体量</div>
+          <div class="kpi-value" style="font-size:1.1rem;">5+3章</div>
+          <div class="kpi-sub">本体5章 + 3个DLC（含免费）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>续作开发背景：</strong>一代凭借百万销量积累了相当规模的国内用户基础。制作团队对续作用户群体的预期构成为：<strong>60% 前作老用户 + 40% 新增用户</strong>。然而自一代发行以来，市场格局已历经七年深度演变，加之前作版权交割等潜在法律风险，后续销量预判仍需保持审慎态度。
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:1.2rem;">一代玩家对续作的期待</h3>
+    <div class="player-quotes">
+      <div class="player-quote-card">
+        <div class="pq-source">豆瓣 · 玩家评论</div>
+        <p class="pq-text">「9分。必须的。打破了传统。如果上一次颠覆我的推理作品是弹丸论破，那这一部就是新的代表作品了……<strong>期待出创意工坊，可以让玩家自己写剧本、编故事。</strong>」</p>
+      </div>
+      <div class="player-quote-card">
+        <div class="pq-source">豆瓣 · 玩家评论</div>
+        <p class="pq-text">「总之很不错的游戏，<strong>希望以后多出DLC或者续作</strong>～配音绝了，玩的很上瘾。推理类游戏需要不断更新才能维持活力。」</p>
+      </div>
+      <div class="player-quote-card">
+        <div class="pq-source">Steam 社区 · 玩家评论</div>
+        <p class="pq-text">「可惜原班人马已经各奔东西，<strong>但希望他们能在其他工作室继续创作，再次做出这样让人惊喜的作品。</strong>」</p>
+        <div class="pq-context">→ 续作在新团队手中重启，正是对这一遗憾的回应</div>
+      </div>
+      <div class="player-quote-card">
+        <div class="pq-source">TapTap · 玩家评论</div>
+        <p class="pq-text">「疑案追声可以说是NExT里最遗憾的一部作品了……<strong>以至于最后疑案追声2项目被砍掉</strong>。不过这一切并不妨碍，它是一部沉浸式的推理佳作。」</p>
+        <div class="pq-context">→ 被砍的2代项目现以《声探研究所》形态重启，玩家期待未断</div>
+      </div>
+      <div class="player-quote-card">
+        <div class="pq-source">电玩巴士 · 媒体评测</div>
+        <p class="pq-text">「<strong>十分期待《疑案追声》不断更新，能产出更多优秀案件让玩家侦破</strong>……推理游戏需要不断推出新案件才能维持活力。」</p>
+      </div>
+      <div class="player-quote-card">
+        <div class="pq-source">开发者访谈 · 主创 Loka</div>
+        <p class="pq-text">「很多玩家在催DLC，更多的玩家在讨论哪个是真结局……<strong>很多梗至今还没有人发现。</strong>」</p>
+        <div class="pq-context">→ 玩家对隐藏内容的深度挖掘，是续作埋暗线世界观的重要依据</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 · 综合评估（前置） -->
+<section id="eval">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <div>
+        <h2 class="section-title">综合<em>评估</em></h2>
+        <p class="section-desc">基于本次内测的全面测评分析</p>
+      </div>
+    </div>
+
+    <div class="pros-cons-grid">
+      <div class="pros-block">
+        <div class="pc-title">核心优势</div>
+        <ul class="pc-list">
+          <li>前作积累相当规模的高忠诚度用户群，续作将直接受益于老玩家的主动回归</li>
+          <li>整体产品质量具备一定水准，核心玩法验证充分，品类受众认知已建立</li>
+          <li>难度递进曲线设计合理，后两关深度与烧脑程度令人印象深刻</li>
+          <li>多层楼房地图等局部微创新，为老玩家提供新鲜感</li>
+          <li>千禧年题材 + 年代梗设计，具备短视频传播的天然素材潜力</li>
+          <li>制作团队对测评反馈态度开放，优化方向清晰且具可行性</li>
+        </ul>
+      </div>
+      <div class="cons-block">
+        <div class="pc-title">当前劣势</div>
+        <ul class="pc-list">
+          <li>前期案件文本质量略显普通，叙事深度尚不均衡</li>
+          <li>画风相比前作有所退步，老式机器/像素字体风格存在接受门槛</li>
+          <li>部分关卡（案件4）信息量不足，存在玩家无效卡关风险</li>
+          <li>剧情解谜品类，相当比例潜在用户可能选择观看直播而非购买</li>
+          <li>仍为早期内测，距离正式商业化还有较长打磨周期</li>
+          <li>前作版权交割等潜在法律风险，影响市场推广节奏的确定性</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="neutral-block">
+      <div class="pc-title">不确定因素（待观察）</div>
+      <ul class="pc-list">
+        <li><strong style="color:var(--text);">定价策略：</strong>制作组考虑在前作38元定价基础上提价（前作含5案件）；更高定价或带来更高销售额，但可能引发体量与定价不符的讨论</li>
+        <li><strong style="color:var(--text);">暗线世界观：</strong>七案串联的暗线仍在开发阶段，完成质量将直接决定整体口碑上限</li>
+        <li><strong style="color:var(--text);">梗配音落地：</strong>类似罗永浩/方舟子声线梗的实际版权可行性与传播效果，有待验证</li>
+        <li><strong style="color:var(--text);">多结局设计：</strong>类似前作的多结局/开放结局能否成功落地，将直接影响通关后社区讨论热度</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · 测试概况 -->
+<section id="test">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <div>
+        <h2 class="section-title">二代<em>测试概况</em></h2>
+        <p class="section-desc">2025年3月4日，游卡网络战略分析组与研发团队及制作人展开全面深度内测评估</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-block">
+        <h4>基本信息</h4>
+        <div class="info-row"><span class="info-key">产品名称</span><span class="info-val">声探研究所</span></div>
+        <div class="info-row"><span class="info-key">开发阶段</span><span class="info-val"><span class="tag tag-gold">早期内测版本</span></span></div>
+        <div class="info-row"><span class="info-key">测试日期</span><span class="info-val">2025年3月4日</span></div>
+        <div class="info-row"><span class="info-key">单人测试时长</span><span class="info-val">约7小时（10:30～17:30）</span></div>
+        <div class="info-row"><span class="info-key">与制作人交流</span><span class="info-val">每关结束后 10~20 分钟</span></div>
+        <div class="info-row"><span class="info-key">第二次测试</span><span class="info-val"><span class="tag tag-blue">预计 2025年6月</span></span></div>
+        <div class="info-row"><span class="info-key">中文正式版</span><span class="info-val">预计 2025年10月</span></div>
+      </div>
+      <div class="info-block">
+        <h4>关卡测试数据</h4>
+        <div class="info-row"><span class="info-key">故事总数</span><span class="info-val">7 个全新独立故事</span></div>
+        <div class="info-row"><span class="info-key">前5关通关时长</span><span class="info-val">每关 10～20 分钟</span></div>
+        <div class="info-row"><span class="info-key">后2关通关时长</span><span class="info-val">每关 30 分钟以上</span></div>
+        <div class="info-row"><span class="info-key">故事背景时代</span><span class="info-val">千禧年前后</span></div>
+        <div class="info-row"><span class="info-key">美术风格</span><span class="info-val">老式机器 · 像素字体</span></div>
+        <div class="info-row"><span class="info-key">界面沿袭</span><span class="info-val">基于一代框架微调</span></div>
+        <div class="info-row"><span class="info-key">Demo 上线预期</span><span class="info-val">2025年6月</span></div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>当前版本直观印象：</strong>一代框架换了七个新故事——美术资产与界面设计基本沿用一代基础进行微调，核心玩法仍为声音解谜 · 监听推理体系。地图设计有局部微创新（案件2的平面多层楼房支持上下楼探索，为一代所未有）。整体为高度继承型续作，以全新剧情内容为核心驱动力。
+    </div>
+  </div>
+</section>
+
+<!-- 03 · 七个故事 -->
+<section id="cases">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <div>
+        <h2 class="section-title">七个<em>全新故事</em></h2>
+        <p class="section-desc">7个独立案件，难度递进，构成声探研究所的完整体验骨架</p>
+      </div>
+    </div>
+
+    <div class="cases-wrap">
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">01</div>
+          <div class="case-info">
+            <div class="case-title">文盛大厦 <span class="case-time">1999年12月</span></div>
+            <div class="case-tags"><span class="tag tag-green diff-dot diff-easy">新手引导</span><span class="tag tag-gold">双胞胎</span><span class="tag tag-blue">下毒</span></div>
+            <p class="case-synopsis">李博文、李仲文双胞胎兄弟——哥哥顺风顺水晋升文盛，弟弟心理不平衡，联系外人栽赃陷害并在酒里下毒。玩家找到"在酒里下毒"的核心线索即可通关。</p>
+            <div class="case-note">🎯 定位：新手适应关卡，剧情简明，线索充分，旨在帮助玩家熟悉声探系统的基本操作。</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">02</div>
+          <div class="case-info">
+            <div class="case-title">老施面馆</div>
+            <div class="case-tags"><span class="tag tag-gold diff-dot diff-medium">中等难度</span><span class="tag tag-blue">多层地图</span><span class="tag tag-gold">黄金 vs 毒品</span><span class="tag tag-red">螳螂捕蝉</span></div>
+            <p class="case-synopsis">两条主线交织：①雌雄大盗偷黄金，雄（耗子）被面馆老板施正发杀害，杨大爷目击后以此勒索；②保安李伟在楼内制毒。玩家需甄别"黄金"与"毒品"的流转轨迹，并推断耗子被杀的隐性线索。</p>
+            <div class="case-note">🗺️ 微创新：地图为平面多层楼房，玩家可上下楼探索不同房间——一代所未有的空间维度新体验。</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">03</div>
+          <div class="case-info">
+            <div class="case-title">东山肾结石医院</div>
+            <div class="case-tags"><span class="tag tag-gold diff-dot diff-medium">中偏难</span><span class="tag tag-blue">蓝图谜题</span><span class="tag tag-red">监狱外运</span></div>
+            <p class="case-synopsis">监狱服刑的老K持有一台能听到远处声音的机器，借运送尸体之机将"蓝图"秘密送出监狱。核心障眼法：尸体上的纹身令众人误以为是蓝图，而真正的"蓝图"是随尸体一起运来的活人彭大头——他过目不忘，能制作那台机器，因此得名"蓝图"。</p>
+            <div class="case-note">💡 解谜要点：需在仔细聆听对话之余发挥充分想象力，方能识破多层障眼法。</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">04</div>
+          <div class="case-info">
+            <div class="case-title">东山监狱</div>
+            <div class="case-tags"><span class="tag tag-red diff-dot diff-hard">难度较高</span><span class="tag tag-gold">针管争夺</span><span class="tag tag-blue">越狱计划</span></div>
+            <p class="case-synopsis">肇事逃逸的赵武入狱后成为多股势力目标，各方围绕"针管"凶器展开偷梁换柱的博弈。真相出人意料：黄毛为阻止越狱计划曝光，决意除掉新室友赵武；他从不洗澡却购买香水，竟是为了骗过越狱后的警犬。</p>
+            <div class="case-note">⚠️ 制作组反馈：多名玩家反映结局难度过大、信息不足，后续将在黄牙房间加入海报、被砸马桶等视觉提示。</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">05</div>
+          <div class="case-info">
+            <div class="case-title">东山酒店</div>
+            <div class="case-tags"><span class="tag tag-gold diff-dot diff-medium">中等难度</span><span class="tag tag-blue">偷听勒索</span><span class="tag tag-red">时间线错位</span></div>
+            <p class="case-synopsis">肥科与小黑利用能偷听隔壁房间的机器意图敲诈发财，左右邻房的住客也各自心怀鬼胎。更大的混乱来自两人将偷听到的录音误当作正在发生的事——时间线错位让整个案件扑朔迷离。最终酒店内多人遇害，玩家需厘清各凶手的独立杀人动机。</p>
+          </div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">06</div>
+          <div class="case-info">
+            <div class="case-title">追日山庄</div>
+            <div class="case-tags"><span class="tag tag-red diff-dot diff-hard">高难度</span><span class="tag tag-blue">剧组谋杀</span><span class="tag tag-gold">连环栽赃</span><span class="tag tag-red">环环相扣</span></div>
+            <p class="case-synopsis">剧组中导演被贾大智砸死后，引发一连串栽赃与伪造：贾大智陷害男主李楷模，李用鱼缸伪造死亡现场，杨玉如将尸体扔下悬崖……环环相扣后剧组安排特技演员史大龙假扮导演应付投资人。支线中监控室的索尼对威亚动了手脚，本想害死李楷模，阴差阳错害死了投资人赵总。</p>
+            <div class="case-note">🔑 核心谜底：前一天的死者是导演而非史大龙，需通过金鱼小主人对不同人的称呼推理得出。测评认为此案剧情精彩，不建议过度降低难度。</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-header">
+          <div class="case-num-badge">07</div>
+          <div class="case-info">
+            <div class="case-title">东山电视台</div>
+            <div class="case-tags"><span class="tag tag-red diff-dot diff-hard">压轴烧脑</span><span class="tag tag-blue">葬礼 × 综艺</span><span class="tag tag-gold">炸弹尸体</span><span class="tag tag-green">彩蛋结局</span></div>
+            <p class="case-synopsis">双主线并行：龙兴帮老大龙万里的葬礼，以及声探机在综艺节目上的亮相。无功大师杀害龙万里后，六当家偷出尸体带上综艺直播意图借声探机探明真相——而尸体内暗藏的炸弹最终当众引爆，将凶手无功大师炸死。隐藏谜题：综艺节目用于假扮尸体的猫"乌龙"，其真实身份需从蛛丝马迹中推理得出。</p>
+            <div class="case-note">🐱 彩蛋结局：戴上声探机的猫乌龙指向本作隐藏彩蛋——玩家扮演的正是乌龙。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <table class="styled-table">
+      <thead><tr><th>关卡</th><th>难度定位</th><th>核心解谜焦点</th><th>制作组已知问题</th></tr></thead>
+      <tbody>
+        <tr><td>01 文盛大厦</td><td><span class="diff-dot diff-easy">新手引导</span></td><td>找到下毒载体（酒）</td><td>—</td></tr>
+        <tr><td>02 老施面馆</td><td><span class="diff-dot diff-medium">中等</span></td><td>黄金 vs 毒品物品流转判断</td><td>—（多层地图微创新获好评）</td></tr>
+        <tr><td>03 东山肾结石医院</td><td><span class="diff-dot diff-medium">中偏难</span></td><td>识破"蓝图"的真实含义</td><td>想象力门槛较高</td></tr>
+        <tr><td>04 东山监狱</td><td><span class="diff-dot diff-hard">较难</span></td><td>真正凶手动机 · 香水用途推断</td><td>信息量不足，后续加入视觉细节</td></tr>
+        <tr><td>05 东山酒店</td><td><span class="diff-dot diff-medium">中等</span></td><td>多凶手动机厘清 · 录音时间线错位</td><td>—</td></tr>
+        <tr><td>06 追日山庄</td><td><span class="diff-dot diff-hard">高</span></td><td>连环栽赃时间线重构 · 真正死者身份</td><td>时间线过于复杂，考虑加入更明显线索</td></tr>
+        <tr><td>07 东山电视台</td><td><span class="diff-dot diff-hard">压轴烧脑</span></td><td>乌龙身份 · 炸弹逻辑 · 彩蛋结局</td><td>杀人动机尚未最终确定（制作组内部）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 04 · 测评反馈 -->
+<section id="feedback">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <div>
+        <h2 class="section-title">深度<em>测评反馈</em></h2>
+        <p class="section-desc">测评团队与制作团队多轮深度交流后的系统性观察与分析</p>
+      </div>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">玩法传承：续作不必刻意创新</div>
+      <p>玩法高度沿袭前作。制作人援引玩家社群真实反馈——玩家群内留言的是<span class="hl">「听说制作组被解散了，以后玩不到DLC了」</span>，而非"玩不到续作"，折射出玩家对同玩法 · 全新剧情模式的真实期待。制作组以《逆转裁判》系列为例：后续作品新增的玩法元素反而弄巧成拙。剧情解谜游戏与以玩法为核心的游戏属性不同，续作无需在机制创新上做大幅突破。</p>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">剧情与难度曲线</div>
+      <p>7个案件难度逐步递增，提供良好的循序渐进体验。<span class="hl">最后两个案件（追日山庄、东山电视台）深度足够、硬核烧脑</span>，有充分的叙事分量。当前版本前几个故事文本质量略显普通，部分案件细节层面仍需进一步打磨，尤其是案件4东山监狱的线索充分性问题。</p>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">世界观体系：七案联动的宏观叙事构想</div>
+      <p>测评重点提出将七个独立案件置于同一套世界观体系之下，通过隐性人物关联增强案件间的叙事张力与玩家探索欲。</p>
+      <div class="pull-quote">
+        <p>案件1中令人意难平的李仲文、李博文兄弟——会不会在十年后就是案件7中的无功无过兄弟？当玩家通关后能产生这样的跨案联想，探索余地将大幅扩展。卖得暗线越多，留给玩家的探索余地也就越大。</p>
+        <cite>测评核心建议 → 制作组已认同，后续计划设计暗线串联7案</cite>
+      </div>
+      <p>若给玩家一些干预剧情角色命运的机会——如不同剧情中令人意难平的角色能微调后续走向，将大幅提升讨论热度与社区活跃度。</p>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">填空题 vs 选择题：引导模式的必要性</div>
+      <p>很多关卡存在填空题（如"弟弟在哪里下的毒"），相比选择题玩家无法使用排除法。制作组正考虑引入<span class="hl">沉浸模式</span>和<span class="hl">引导模式</span>（答题一段时间无进展后浮现提示线索），适配不同层级的玩家需求。</p>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">千禧年题材与"梗"的传播价值</div>
+      <p>以千禧年为故事大背景，后续考虑埋入更多年代梗引发共鸣（如小偷撬锁时同伙在看刘翔跑出12秒88的直播，锁也同时被撬开）。目前已有的梗多以角色名字为主，如柯有才对应柯南、小毛对应毛利兰，万能手表致敬名侦探柯南。</p>
+      <div class="pull-quote">
+        <p>制作人表示，现有及后续加入的梗，核心目的是促进玩家讨论、帮助游戏传播——因为对案件本身的讨论相对有限，需要提供别的话题切入点。</p>
+        <cite>制作组立场</cite>
+      </div>
+      <p>测评认为现有梗对拉新的吸引力有限，个人共鸣感有限（但不同玩家对此接受度差异较大）。后续将埋入更多梗配音（如类似罗永浩和方舟子声线等），<span class="hl">成功融入后，在素材破圈效果传播上预期将有明显助力。</span></p>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">画风与科幻背景铺垫</div>
+      <p>当前版本为配合千禧年"声探机"科幻背景，交互界面整体设计为老式机器样式，文字采用像素字体。测评认为本作画风不如前作，但若游戏开头提供充分的背景铺垫，帮助玩家快速代入科幻设定，接受度可能更高。制作组已表示后续将对此进行优化。</p>
+    </div>
+
+    <div class="feedback-topic">
+      <div class="feedback-topic-title">关于直播与购买转化</div>
+      <p>对剧情解谜游戏而言，部分玩家更偏向观看直播而非亲自购买游玩。<span class="hl">建议游戏上线后在与游戏博主合作时，明确鼓励主播引导观众自行购买游玩</span>——将观看人群转化为付费用户，弥补品类天然的转化损耗。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · 后续优化路径 -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <div>
+        <h2 class="section-title">后续<em>优化路径</em></h2>
+        <p class="section-desc">制作组确认的改进方向 + 测评建议</p>
+      </div>
+    </div>
+
+    <div class="sug-list" style="margin-bottom:2rem;">
+      <div class="sug-item"><div class="sug-icon">🌐</div><div class="sug-content"><h4>统一世界观 · 七案暗线贯穿</h4><p>将7个独立案件置于同一世界观体系下，设计跨案隐性人物关联，每案埋入1~2条跨案线索，通关多案后解锁更大叙事拼图，赋予续作超越"换了七个新故事的一代"的独立叙事价值。</p></div></div>
+      <div class="sug-item"><div class="sug-icon">💬</div><div class="sug-content"><h4>梗对话与梗配音升级 · 破圈传播</h4><p>在现有角色名字梗之上，植入更多具备声音辨识度的年代梗（如类似罗永浩、方舟子声线的角色配音），为游戏生成具有天然二次传播属性的短视频素材，辅助游戏在玩家圈层之外扩散破圈。</p></div></div>
+      <div class="sug-item"><div class="sug-icon">🎮</div><div class="sug-content"><h4>沉浸模式 + 引导模式双轨设计</h4><p>针对填空题无法使用排除法的问题，设计分层答题体验：沉浸模式供核心玩家享受原汁原味的挑战；引导模式在玩家长时间无进展时自动浮现关键提示线索，降低轻度用户卡关流失率。</p></div></div>
+      <div class="sug-item"><div class="sug-icon">🗺️</div><div class="sug-content"><h4>案件4东山监狱线索补充</h4><p>在黄牙的房间内加入墙上的海报以及被砸开的马桶等视觉细节，为"从不洗澡者购买香水"这一关键动机提供更充分的解谜线索支撑，降低该关卡的无效卡关率。</p></div></div>
+      <div class="sug-item"><div class="sug-icon">🎬</div><div class="sug-content"><h4>科幻背景铺垫优化 · 提升画风接受度</h4><p>在游戏开场设计声探机的科幻背景介绍段落，帮助玩家快速代入千禧年科幻设定，提升老式机器界面风格与像素字体的接受度。制作组已有明确优化计划。</p></div></div>
+      <div class="sug-item"><div class="sug-icon">🔀</div><div class="sug-content"><h4>多结局 / 开放结局设计</h4><p>类似前作，设计多结局或开放式结局供玩家讨论，搭配通关后"全服玩家选择比例"的可视化展示，激发社区自发讨论与传播——剧情解谜品类口碑发酵最强的天然引擎。</p></div></div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:1.4rem;">发布路线图</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-label">2025年3月4日 · 已完成</div>
+        <h4>第一次内测</h4>
+        <p>游卡战略分析组与制作人团队完成全面深度测评，完成7关约7小时体验与多轮反馈交流。</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-label">2025年6月 · 计划中</div>
+        <h4>第二次测试 + Demo 上线</h4>
+        <p>完成中文版核心内容打磨，上线可供公众体验的 Demo 版本；邀请测评团队再次参与正式版前测试。</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-label">2025年10月 · 预计</div>
+        <h4>中文正式版上线</h4>
+        <p>完成全部7个故事、暗线世界观、多结局设计的正式商业版本发布。英文版因本地化需要，上线时间另行安排。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · 前景展望 -->
+<section id="outlook">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <div>
+        <h2 class="section-title">前景<em>展望</em></h2>
+        <p class="section-desc">综合判断与市场潜力评估</p>
+      </div>
+    </div>
+
+    <div class="potential-card">
+      <div class="potential-score">
+        <div class="rating-stars">
+          <span class="rating-star">★</span>
+          <span class="rating-star">★</span>
+          <span class="rating-star">★</span>
+          <span class="rating-star empty">★</span>
+          <span class="rating-star empty">★</span>
+        </div>
+        <div class="rating-text">潜力中等</div>
+        <div class="rating-sub">尚需打磨</div>
+      </div>
+      <div class="potential-content">
+        <h3>潜力中等 · 尚需打磨</h3>
+        <p>当前早期内测版本已具备合格品质基线：玩法体系成熟、难度梯度合理、压轴两关深度可期。前期案件文本质量与画风适应性问题仍是转化核心用户的潜在障碍，世界观暗线、梗配音等计划中的亮点尚未落地。若后续打磨到位，具备超越前作讨论热度的条件。</p>
+        <div class="bar-group">
+          <div class="bar-row"><span class="bar-label">玩法成熟度</span><div class="bar-track"><div class="bar-fill" style="width:88%;"></div></div><span class="bar-val">88%</span></div>
+          <div class="bar-row"><span class="bar-label">剧情深度</span><div class="bar-track"><div class="bar-fill" style="width:72%;"></div></div><span class="bar-val">72%</span></div>
+          <div class="bar-row"><span class="bar-label">传播破圈潜力</span><div class="bar-track"><div class="bar-fill" style="width:65%;"></div></div><span class="bar-val">65%</span></div>
+          <div class="bar-row"><span class="bar-label">画风完成度</span><div class="bar-track"><div class="bar-fill" style="width:58%;"></div></div><span class="bar-val">58%</span></div>
+          <div class="bar-row"><span class="bar-label">世界观完整性</span><div class="bar-track"><div class="bar-fill" style="width:50%;"></div></div><span class="bar-val">50%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-icon">🎯</div>
+        <h4>核心机会：老玩家回归 + 新用户拉新</h4>
+        <p>制作团队预期受众结构为60%前作用户+40%新用户。前作150万+销量构成坚实的潜在回购基础，若口碑延续，新用户转化同样可期。</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">⚠️</div>
+        <h4>核心风险：七年市场演变</h4>
+        <p>自2019年一代发行已历经七年深度变化——叙事解谜品类竞品增多，玩家对内容密度与情感共鸣的期待显著提升，纯形式驱动的叙事游戏生命周期正在压缩。</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🚀</div>
+        <h4>最大变量：暗线世界观落地质量</h4>
+        <p>七案串联的暗线设计是本次测评最核心的改进建议，也是最大口碑乘数因子。若执行到位，将赋予续作超越"换了七个新故事的一代"之外的独立叙事价值。</p>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>总结判断：</strong>声探研究所当前版本阶段较早期、尚有一定潜力。核心玩法无需大动，关键在于剧情文本质量的全面提升、世界观暗线的成功落地，以及画风适应性的优化。若上述几点在正式版前得到有效打磨，配合千禧年题材的年代情怀与梗配音的传播价值，有望在核心受众中复现甚至超越前作的口碑表现——但考虑到版权法律风险与市场大幅变化，<strong>销量预判仍需保持高度审慎。</strong>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:1.2rem;">
+      <svg width="80" height="28" viewBox="0 0 100 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="18" cy="18" rx="16" ry="8" stroke="#b8860b" stroke-width="1.6" fill="none"/>
+        <ellipse cx="18" cy="18" rx="16" ry="8" stroke="#b8860b" stroke-width="1.6" fill="none" transform="rotate(60 18 18)"/>
+        <ellipse cx="18" cy="18" rx="16" ry="8" stroke="#b8860b" stroke-width="1.6" fill="none" transform="rotate(-60 18 18)"/>
+        <circle cx="18" cy="18" r="2.8" fill="#b8860b"/>
+        <text x="39" y="23" font-family="Noto Sans SC,sans-serif" font-weight="700" font-size="14" fill="#1a1814" letter-spacing="1.5">游卡网络</text>
+      </svg>
+      <p>声探研究所 · 深度测评报告 · 战略分析组 · 2025年3月4日</p>
+    </div>
+    <p>参考前作分析：<a href="https://linkkk1222234.github.io/unheard/" target="_blank">《疑案追声》深度拆解报告 →</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
